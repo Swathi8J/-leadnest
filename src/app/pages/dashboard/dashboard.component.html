@@ -1,0 +1,50 @@
+<section class="pipeline">
+  <div class="pipeline-stage" *ngFor="let stage of stages" [class]="'stage-' + stage">
+    <span class="stage-label">{{ stage }}</span>
+    <span class="stage-count">{{ countFor(stage) }}</span>
+  </div>
+</section>
+
+<section class="toolbar">
+  <input
+    class="search"
+    type="text"
+    placeholder="Search by name or company"
+    [(ngModel)]="searchTerm"
+    name="search"
+  />
+  <select class="filter" [(ngModel)]="stageFilter" name="stageFilter">
+    <option value="all">All stages</option>
+    <option *ngFor="let stage of stages" [value]="stage">{{ stage }}</option>
+  </select>
+</section>
+
+<section class="lead-table" *ngIf="filteredLeads.length; else empty">
+  <div class="lead-row lead-row--head">
+    <span>Name</span>
+    <span>Company</span>
+    <span>Contact</span>
+    <span>Stage</span>
+    <span></span>
+  </div>
+  <div class="lead-row" *ngFor="let lead of filteredLeads">
+    <a class="lead-name" [routerLink]="['/leads', lead.id]">{{ lead.name }}</a>
+    <span>{{ lead.company }}</span>
+    <span>{{ lead.contact }}</span>
+    <select
+      [ngModel]="lead.stage"
+      (ngModelChange)="moveStage(lead, $event)"
+      name="stage-{{ lead.id }}"
+    >
+      <option *ngFor="let stage of stages" [value]="stage">{{ stage }}</option>
+    </select>
+    <div class="row-actions">
+      <a [routerLink]="['/leads', lead.id, 'edit']">Edit</a>
+      <button class="btn-text" (click)="remove(lead)">Delete</button>
+    </div>
+  </div>
+</section>
+
+<ng-template #empty>
+  <p class="empty-state">No leads match yet. Try a different search, or add a new lead.</p>
+</ng-template>

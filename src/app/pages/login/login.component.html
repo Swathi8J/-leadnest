@@ -1,0 +1,35 @@
+<div class="auth-wrap">
+  <form class="auth-card" (ngSubmit)="submit()" #f="ngForm">
+    <p class="eyebrow">Pipeline access</p>
+    <h1>LeadNest</h1>
+    <p class="sub">Sign in to your leads dashboard</p>
+
+    <label>
+      Email
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        autocomplete="username"
+      />
+    </label>
+
+    <label>
+      Password
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+        autocomplete="current-password"
+      />
+    </label>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <button type="submit" class="btn-primary" [disabled]="f.invalid || loading">
+      {{ loading ? 'Signing in…' : 'Sign in' }}
+    </button>
+  </form>
+</div>

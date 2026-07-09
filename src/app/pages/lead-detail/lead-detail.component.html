@@ -1,0 +1,46 @@
+<ng-container *ngIf="lead; else loading">
+  <div class="detail-head">
+    <div>
+      <h1>{{ lead.name }}</h1>
+      <p class="sub">{{ lead.company }} · {{ lead.contact }}</p>
+    </div>
+    <div class="head-actions">
+      <a [routerLink]="['/leads', lead.id, 'edit']" class="btn-ghost">Edit</a>
+      <button class="btn-text" (click)="remove()">Delete</button>
+    </div>
+  </div>
+
+  <label class="stage-picker">
+    Stage
+    <select [ngModel]="lead.stage" (ngModelChange)="moveStage($event)" name="stage">
+      <option *ngFor="let s of stages" [value]="s">{{ s }}</option>
+    </select>
+  </label>
+
+  <section class="notes">
+    <h2>Notes</h2>
+    <form class="note-form" (ngSubmit)="addNote()">
+      <textarea
+        [(ngModel)]="newNote"
+        name="note"
+        placeholder="Add a note about this lead"
+        rows="2"
+      ></textarea>
+      <button type="submit" class="btn-primary" [disabled]="!newNote.trim()">Add note</button>
+    </form>
+
+    <ul class="note-list" *ngIf="notes.length; else noNotes">
+      <li *ngFor="let note of notes">
+        <p>{{ note.text }}</p>
+        <time>{{ note.at | date: 'medium' }}</time>
+      </li>
+    </ul>
+    <ng-template #noNotes>
+      <p class="empty-state">No notes yet.</p>
+    </ng-template>
+  </section>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading…</p>
+</ng-template>

@@ -1,0 +1,34 @@
+<form class="lead-form" (ngSubmit)="submit()" #f="ngForm">
+  <h1>{{ isEdit ? 'Edit lead' : 'New lead' }}</h1>
+
+  <label>
+    Name
+    <input type="text" name="name" [(ngModel)]="name" required />
+  </label>
+
+  <label>
+    Company
+    <input type="text" name="company" [(ngModel)]="company" required />
+  </label>
+
+  <label>
+    Contact
+    <input type="text" name="contact" [(ngModel)]="contact" required placeholder="Email or phone" />
+  </label>
+
+  <label>
+    Stage
+    <select name="stage" [(ngModel)]="stage">
+      <option *ngFor="let s of stages" [value]="s">{{ s }}</option>
+    </select>
+  </label>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="form-actions">
+    <button type="submit" class="btn-primary" [disabled]="f.invalid || saving">
+      {{ saving ? 'Saving…' : 'Save lead' }}
+    </button>
+    <a routerLink="/" class="btn-ghost">Cancel</a>
+  </div>
+</form>
