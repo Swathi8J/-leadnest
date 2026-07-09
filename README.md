@@ -5,14 +5,11 @@ Built with Angular (standalone components, TypeScript strict mode), Firebase Aut
 
 ## Demo login
 
-> Replace this line with the real email/password once you've created the user in step 3 below.
-
 - **Email:** `demo@leadnest.app`
 - **Password:** `Leadnest123!`
 
 ## Live demo
-
-> Replace this line with your deployed URL, e.g. `https://your-project-id.web.app`
+ `https://your-project-id.web.app`
 
 ## What's included
 
